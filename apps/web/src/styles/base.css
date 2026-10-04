@@ -1,0 +1,246 @@
+/* CMUX Agent Remote —— 10D「跳格 · 暗夜」基础色板 */
+
+:root {
+  color-scheme: dark;
+  --bg: #111214;
+  --bg-elevated: #1c1f25;
+  --bg-row: #202329;
+  --bg-input: #17191e;
+  --bg-hover: #2b2f38;
+  --bg-terminal: #090b0e;
+  --border: #505663;
+  --text: #f6f4e9;
+  --text-dim: #b2b7c2;
+  /* accent 继续表示「运行中」，操作主色独立使用 primary。 */
+  --accent: #9bda78;
+  --highlight: #9cabc2;
+  --highlight-soft: #27303f;
+  --attention: #c5a574;
+  --attention-border: #807057;
+  --primary: #43618e;
+  --primary-hover: #526f9a;
+  --primary-border: #6f87aa;
+  --error: #ff9292;
+  --responded: #99b9ff;
+  --stale: #d3adff;
+  --shadow-hard: 3px 3px 0 #050608;
+  --radius: 4px;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", "Segoe UI", sans-serif;
+  font-size: 15px;
+  line-height: 1.45;
+  overscroll-behavior-y: none;
+}
+
+.mono {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+}
+
+.dim {
+  color: var(--text-dim);
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.boot {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  color: var(--text-dim);
+}
+
+/* ---------- TopBar ---------- */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: calc(env(safe-area-inset-top, 0px) + 12px) 14px 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-elevated);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.topbar-title {
+  flex: 1;
+  min-width: 0;
+}
+
+.topbar-title-main {
+  font-weight: 600;
+  font-size: 17px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.topbar-title-edit {
+  display: block;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 600;
+  font-size: 17px;
+  text-align: left;
+  cursor: text;
+}
+
+.topbar-title-input {
+  display: block;
+  width: auto;
+  min-width: 3ch;
+  max-width: min(16em, 100%);
+  field-sizing: content;
+  margin: 0;
+  padding: 0 1px 1px;
+  border: none;
+  border-bottom: 1px solid var(--accent);
+  border-radius: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-weight: 600;
+  font-size: 17px;
+  outline: none;
+}
+
+.topbar-title-sub {
+  font-size: 12px;
+  color: var(--text-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 26px;
+  line-height: 1;
+  padding: 0 6px;
+  cursor: pointer;
+}
+
+.conn {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  flex: none;
+}
+
+.conn-open {
+  background: var(--accent);
+}
+
+.conn-connecting {
+  background: var(--attention);
+}
+
+.conn-closed {
+  background: var(--error);
+}
+
+/* ---------- 列表 ---------- */
+
+.scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 8px 12px calc(24px + var(--safe-bottom));
+}
+
+/* workspace 归属标记：会话页标题是 surface 名，workspace 名跟在下面 */
+.ws-chip {
+  display: inline-block;
+  max-width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1px 6px;
+  font-size: 12px;
+  color: var(--text-dim);
+  background: #0d1014;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ws-chip-button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* ---------- 状态 ---------- */
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+}
+
+.status-glyph {
+  font-size: 12px;
+}
+
+.status-working {
+  color: var(--accent);
+}
+
+.status-attention {
+  color: var(--attention);
+}
+
+.status-responded {
+  color: var(--responded);
+}
+
+.status-idle {
+  color: var(--text-dim);
+}
+
+.status-stale {
+  color: var(--stale);
+}
+
+.status-error {
+  color: var(--error);
+}
+
+.status-closed {
+  color: #4b5563;
+}

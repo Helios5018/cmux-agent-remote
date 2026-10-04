@@ -1,0 +1,58 @@
+#!/bin/sh
+# cmux-agent-web-hook —— CMUX Agent Remote 的统一 Agent Hook 入口。
+#
+# 用法: cmux-agent-web-hook <claude|codex|grok> <NativeEventName>
+#
+# 铁律：
+#   1. 只上报状态，不传输终端内容、prompt、源码。
+#   2. 无论发生什么都必须 exit 0、且不向 stdout 输出任何东西，
+#      Hook 服务失效绝不能影响 Agent 本身运行。
+#   3. 超时必须很短，不能拖慢 Agent。
+
+set -u
+
+AGENT="${1:-unknown}"
+EVENT="${2:-unknown}"
+
+# 读取 Agent 从 stdin 传入的原生事件 JSON（读不到就当空对象）。
+PAYLOAD=$(cat 2>/dev/null || true)
+case "$PAYLOAD" in
+  \{*) : ;;
+  *) PAYLOAD='{}' ;;
+esac
+
+CONFIG="${CMUX_AGENT_REMOTE_CONFIG:-$HOME/.cmux-agent-remote/hook.json}"
+ENDPOINT="${CMUX_AGENT_REMOTE_ENDPOINT:-}"
+TOKEN="${CMUX_AGENT_REMOTE_TOKEN:-}"
+
+if [ -z "$ENDPOINT" ] && [ -r "$CONFIG" ]; then
+  ENDPOINT=$(sed -n 's/.*"endpoint"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' "$CONFIG" | head -n 1)
+fi
+if [ -z "$TOKEN" ] && [ -r "$CONFIG" ]; then
+  TOKEN=$(sed -n 's/.*"token"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' "$CONFIG" | head -n 1)
+fi
+
+# 服务没跑 / 没装配置：安静退出。
+[ -z "$ENDPOINT" ] && exit 0
+command -v curl >/dev/null 2>&1 || exit 0
+
+json_escape() {
+  printf '%s' "$1" | sed -e 's/\\/\\\\/g' -e 's/"/\\"/g' -e 's/	/\\t/g'
+}
+
+WORKSPACE_ID=$(json_escape "${CMUX_WORKSPACE_ID:-}")
+SURFACE_ID=$(json_escape "${CMUX_SURFACE_ID:-}")
+CWD=$(json_escape "${PWD:-}")
+EVENT_ESCAPED=$(json_escape "$EVENT")
+NOW=$(date +%s 2>/dev/null || echo 0)
+
+BODY=$(printf '{"event":"%s","payload":%s,"context":{"workspaceId":"%s","surfaceId":"%s","pid":%s,"cwd":"%s","timestamp":%s}}' \
+  "$EVENT_ESCAPED" "$PAYLOAD" "$WORKSPACE_ID" "$SURFACE_ID" "${PPID:-0}" "$CWD" "${NOW}000")
+
+curl -s -o /dev/null --max-time 2 \
+  -X POST "$ENDPOINT/$AGENT" \
+  -H 'content-type: application/json' \
+  -H "x-car-token: $TOKEN" \
+  --data-binary "$BODY" >/dev/null 2>&1 || true
+
+exit 0

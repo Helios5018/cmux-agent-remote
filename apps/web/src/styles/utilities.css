@@ -1,0 +1,147 @@
+/* ---------- 其它 ---------- */
+
+.banner {
+  background: #1f2937;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 13px;
+  margin: 8px 0;
+  color: var(--attention);
+}
+
+.banner.error {
+  color: var(--error);
+}
+
+.empty {
+  text-align: center;
+  color: var(--text-dim);
+  padding: 48px 16px;
+}
+
+.empty-hint {
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.footer-actions {
+  display: flex;
+  gap: 8px;
+  margin: 24px 0 8px;
+}
+
+.ghost-button {
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-dim);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.link-button {
+  background: none;
+  border: none;
+  color: var(--responded);
+  text-decoration: underline;
+  cursor: pointer;
+  font: inherit;
+  padding: 0 4px;
+}
+
+/* ---------- 登录 ---------- */
+
+.login {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  padding: 24px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 360px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.login-card h1 {
+  font-size: 20px;
+  margin: 0 0 6px;
+}
+
+.login-hint {
+  color: var(--text-dim);
+  font-size: 13px;
+  margin: 0 0 18px;
+}
+
+.login-input {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #0d1014;
+  color: var(--text);
+  padding: 12px 14px;
+  font-size: 16px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.12em;
+  margin-bottom: 12px;
+}
+
+.primary-button {
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  background: var(--accent);
+  color: #08130c;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.pin-input {
+  text-align: center;
+  font-size: 28px;
+  letter-spacing: 0.5em;
+  text-indent: 0.5em;
+  padding: 14px;
+}
+
+.login-note {
+  margin: 14px 0 0;
+  font-size: 12px;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+.login-error {
+  margin-top: 12px;
+  color: var(--error);
+  font-size: 13px;
+}
+
+@media (max-width: 767px) {
+  .composer {
+    --composer-sheet-max: 80vh;
+  }
+}
+
+@media (min-width: 768px) {
+  .scroll-area,
+  .tree-toolbar,
+  .session-header,
+  .session-tools,
+  .composer,
+  .output {
+    max-width: 860px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+  }
+}

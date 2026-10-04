@@ -1,0 +1,24 @@
+node_modules/
+dist/
+*.log
+*.tsbuildinfo
+.DS_Store
+.vscode/
+.idea/
+
+# 运行期数据（状态库 / hook 配置 / token）
+*.db
+*.db-shm
+*.db-wal
+.cmux-agent-remote/
+.sealtun/
+
+# 备份文件
+*.bak
+
+# 浏览器验收临时输出
+.playwright-mcp/
+
+# 本地中间文件与审计备份，不进入公开仓库
+/scratchpad/
+/docs/instruction-audit/

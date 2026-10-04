@@ -1,0 +1,142 @@
+/* ---------- 会话页 ---------- */
+
+.session-page {
+  height: 100%;
+  /* 翻页提示要浮在终端上，不能占布局高度 */
+  position: relative;
+}
+
+.session-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-elevated);
+}
+
+.session-agent {
+  font-weight: 600;
+}
+
+.session-timing {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-left: auto;
+}
+
+.session-activity {
+  width: 100%;
+  font-size: 12px;
+  color: var(--text-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.session-warning {
+  width: 100%;
+  font-size: 12px;
+  color: var(--stale);
+}
+
+.output {
+  flex: 1;
+  /* 不加这行，内容高度会把输入区顶出屏幕 */
+  min-height: 0;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  /* 滑到边界继续滑是翻页手势，别让浏览器顺手去弹整个页面 */
+  overscroll-behavior: contain;
+  margin: 0;
+  padding: 10px 12px;
+  background: #0d1014;
+}
+
+/* 翻页手势：拖动时画面跟手，松手弹回原位 */
+.output-drag {
+  transition: transform 0.18s ease-out;
+}
+
+.output-drag.dragging {
+  transition: none;
+}
+
+.page-hint {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  transform: translateX(-50%);
+  /* 贴在终端区顶部，盖住画面最上面一行 */
+  margin-top: 6px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  color: var(--text-dim);
+  font-size: 12px;
+  pointer-events: none;
+}
+
+.output-empty {
+  padding: 20px 2px;
+  font-size: 13px;
+}
+
+/* 沉浸模式：标题、状态、留白全收起来，屏幕尽量都给终端 */
+.session-page.immersive .session-header {
+  display: none;
+}
+
+.session-page.immersive .output {
+  padding: 4px 6px;
+}
+
+.session-page.immersive .session-tools {
+  padding: 3px 8px;
+}
+
+/* ---------- 网格之外更早的历史（纯文本） ---------- */
+
+.history-block {
+  margin-bottom: 10px;
+}
+
+.history-text {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--text-dim);
+}
+
+.history-note {
+  font-size: 11px;
+  margin-bottom: 6px;
+}
+
+.history-divider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0;
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+.history-divider::before,
+.history-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.session-content { display: flex; flex: 1; min-width: 0; min-height: 0; }
+.session-terminal { display: flex; flex-direction: column; flex: 1; min-width: 0; min-height: 0; position: relative; }
+.session-terminal[hidden] { display: none; }
+.session-content.split-view > .session-terminal { flex: 0 0 48%; border-right: 1px solid var(--border); }
+.session-content.split-view > .file-browser { flex: 1; min-width: 0; }

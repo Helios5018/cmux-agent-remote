@@ -1,0 +1,385 @@
+/*
+ * 10D「跳格 · 暗夜」外观层。
+ * 仅覆盖颜色、字重、边框和装饰；布局、折叠、横滑、手势及终端网格沿用原样式。
+ * 不覆盖 .tgrid：终端前景 / 背景 / ANSI 色与字符度量仍由真实画面决定。
+ */
+
+button,
+input,
+textarea {
+  font-family: inherit;
+}
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--highlight);
+  outline-offset: 3px;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-dim);
+  opacity: 0.8;
+}
+
+.topbar {
+  background: var(--bg);
+  border-bottom: 2px solid var(--border);
+  box-shadow: 0 3px 0 #050608;
+}
+
+.topbar-title-main {
+  font-size: 20px;
+  font-weight: 750;
+  letter-spacing: -0.035em;
+}
+
+.topbar-title-sub {
+  font-variant-numeric: tabular-nums;
+}
+
+.conn {
+  box-shadow: 0 0 0 3px var(--bg), 0 0 0 4px var(--border);
+}
+
+.chip-button,
+.ghost-button,
+.key-button,
+.composer-expand,
+.pane-new-trigger,
+.pane-new-option,
+.pane-new-cancel {
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-elevated);
+  color: var(--text);
+  box-shadow: 2px 2px 0 #050608;
+  font-weight: 600;
+}
+
+.chip-button.on {
+  border-color: var(--highlight);
+  background: var(--highlight);
+  color: #17191e;
+}
+
+/* 搜索和筛选共用尺寸与排版，避免输入控件比相邻按钮显大。 */
+.tree-toolbar .tree-search,
+.tree-toolbar > .chip-button {
+  height: 40px;
+  border-width: 2px;
+  border-radius: var(--radius);
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 500;
+  box-shadow: none;
+}
+
+.tree-toolbar .tree-search {
+  padding: 7px 32px 7px 12px;
+}
+
+.tree-toolbar > .chip-button {
+  padding: 7px 10px;
+}
+
+@media (max-width: 600px) {
+  .tree-toolbar {
+    flex-wrap: wrap;
+  }
+
+  .tree-search-wrap {
+    flex-basis: 100%;
+  }
+
+  .tree-toolbar > .chip-button {
+    flex: 1;
+    padding-inline: 4px;
+  }
+}
+
+.tree-search,
+.composer-input,
+.login-input,
+.rename-dialog input {
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-input);
+  color: var(--text);
+  box-shadow: inset 0 2px 0 #050608;
+}
+
+.primary-button,
+.send-button {
+  border: 2px solid var(--primary-border);
+  border-radius: var(--radius);
+  background: var(--primary);
+  color: #fff;
+  box-shadow: var(--shadow-hard);
+  font-weight: 750;
+}
+
+/* 新建是次要操作，避免每个工作区出现一块高饱和度按钮。 */
+.pane-new-trigger,
+.pane-new.open .pane-new-option {
+  border-color: #414650;
+  background: var(--bg-input);
+  color: var(--text-dim);
+  box-shadow: none;
+  font-weight: 500;
+}
+
+.primary-button:disabled,
+.send-button:disabled {
+  opacity: 0.45;
+  box-shadow: none;
+}
+
+.icon-button,
+.more-button,
+.surface-close,
+.composer-size-toggle,
+.composer-collapse {
+  border-radius: var(--radius);
+  color: var(--text-dim);
+}
+
+.more-button[aria-expanded="true"] {
+  color: var(--highlight);
+  background: var(--bg-hover);
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+
+.ws-block {
+  background: var(--bg-elevated);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 4px 4px 0 #050608;
+}
+
+.ws-header {
+  border-bottom: 2px solid var(--border);
+  border-radius: 2px 2px 0 0;
+  background: var(--bg-elevated);
+}
+
+.ws-header:has(.ws-toggle[aria-expanded="false"]) {
+  border-bottom-color: transparent;
+}
+
+.ws-name {
+  font-weight: 750;
+  letter-spacing: -0.02em;
+}
+
+.caret {
+  color: var(--text);
+}
+
+.chip,
+.ws-chip {
+  border-radius: 3px;
+  background: var(--bg-input);
+  font-weight: 600;
+}
+
+.chip-now {
+  border-color: var(--highlight);
+  background: var(--highlight);
+  color: #17191e;
+}
+
+.chip-attention {
+  border-color: var(--attention-border);
+  background: #2b2620;
+}
+
+.chip-working {
+  border-color: #517241;
+  background: #202c20;
+}
+
+.pane-header {
+  font-weight: 600;
+}
+
+.surface-row {
+  border-width: 2px;
+  border-radius: var(--radius);
+  box-shadow: 2px 2px 0 #050608;
+}
+
+.surface-row.muted {
+  opacity: 0.8;
+}
+
+.surface-title {
+  font-weight: 650;
+}
+
+.surface-row:has(.status-attention) {
+  border-color: var(--attention-border);
+  background: #24221f;
+}
+
+.surface-row:has(.status-attention) .surface-title {
+  color: var(--attention);
+}
+
+.surface-row:has(.status-error) {
+  border-color: var(--error);
+}
+
+.surface-open:active {
+  background: var(--bg-hover);
+}
+
+.surface-close.armed {
+  color: var(--error);
+  background: #351f24;
+  box-shadow: inset 0 0 0 1px var(--error);
+}
+
+.session-header,
+.session-tools,
+.composer {
+  background: var(--bg-elevated);
+  border-color: var(--border);
+}
+
+.session-agent {
+  color: var(--highlight);
+  font-weight: 750;
+}
+
+.session-header .status {
+  border: 1px solid currentColor;
+  border-radius: 3px;
+  padding: 1px 6px;
+  font-weight: 600;
+}
+
+.output {
+  background: var(--bg-terminal);
+  box-shadow: inset 1px 0 0 var(--border), inset -1px 0 0 var(--border);
+}
+
+/* 把不可见的字体测量探针约束在终端滚动区，避免撑宽手机页面。 */
+.output-drag {
+  position: relative;
+}
+
+.session-tools,
+.composer {
+  border-top-width: 2px;
+}
+
+/* 图标工具条用内描边表现方角，不额外占用按钮尺寸。 */
+.session-tools .chip-button {
+  border-width: 1px;
+  font-weight: 400;
+  box-shadow: inset 0 0 0 1px var(--border), 2px 2px 0 #050608;
+}
+
+.session-tool-button[aria-pressed="true"] {
+  color: var(--highlight);
+  background: var(--highlight-soft);
+}
+
+.session-tools .session-tool-button:focus-visible {
+  outline-offset: 0;
+}
+
+.key-button.danger {
+  background: #2c1e23;
+  border-color: #a15c65;
+  color: #ffb3b3;
+}
+
+.key-button.danger-armed {
+  background: var(--error);
+  border-color: var(--error);
+  color: #200a0e;
+}
+
+.key-bar-wrap::before {
+  background: linear-gradient(to right, var(--bg-elevated), transparent);
+}
+
+.key-bar-wrap::after {
+  background: linear-gradient(to left, var(--bg-elevated), transparent);
+}
+
+.page-hint,
+.banner,
+.rename-menu-panel,
+.rename-dialog,
+.login-card {
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-elevated);
+  box-shadow: var(--shadow-hard);
+}
+
+.banner {
+  border-left-color: var(--attention);
+}
+
+.banner.error {
+  border-left-color: var(--error);
+}
+
+.rename-menu-panel button {
+  border-radius: 2px;
+}
+
+.rename-dialog::backdrop {
+  background: #050608bb;
+}
+
+.rename-dialog h2,
+.login-card h1 {
+  font-weight: 750;
+  letter-spacing: -0.03em;
+}
+
+.login-card {
+  border-top: 4px solid var(--highlight);
+  box-shadow: 7px 7px 0 #050608;
+}
+
+.login-card h1 {
+  color: var(--highlight);
+  font-size: 24px;
+}
+
+.login-card .pin-input {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@media (hover: hover) {
+  .chip-button:not(.on):not(:disabled):hover,
+  .ghost-button:hover,
+  .key-button:not(.danger):not(:disabled):hover,
+  .composer-expand:hover,
+  .pane-new-trigger:hover,
+  .pane-new.open .pane-new-option:not(:disabled):hover,
+  .pane-new-cancel:not(:disabled):hover {
+    background: var(--bg-hover);
+    border-color: var(--text-dim);
+  }
+
+  .primary-button:not(:disabled):hover,
+  .send-button:not(:disabled):hover {
+    background: var(--primary-hover);
+    border-color: var(--highlight);
+  }
+
+  .surface-open:hover,
+  .more-button:hover,
+  .rename-menu-panel button:hover {
+    background: var(--bg-hover);
+    color: var(--text);
+  }
+}

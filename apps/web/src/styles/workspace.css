@@ -1,0 +1,393 @@
+/* ---------- 结构树工具条 ---------- */
+
+.tree-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px 0;
+}
+
+.tree-search-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.tree-search {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: #0d1014;
+  color: var(--text);
+  padding: 7px 28px 7px 12px;
+  font: inherit;
+  /* 16px 以下 iOS 会自动放大页面 */
+  font-size: 16px;
+}
+
+.tree-search-clear {
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: none;
+  color: var(--text-dim);
+  font-size: 14px;
+  padding: 4px 6px;
+  cursor: pointer;
+}
+
+.chip-button {
+  flex: none;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-dim);
+  border-radius: 999px;
+  padding: 7px 10px;
+  font: inherit;
+  font-size: 12px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.chip-button.on {
+  border-color: #37414d;
+  background: #1c232c;
+  color: var(--text);
+}
+
+/* ---------- 结构树：Workspace → Pane → Surface ---------- */
+
+.ws-block {
+  margin-top: 14px;
+}
+
+.ws-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  color: inherit;
+  font: inherit;
+  padding: 6px 4px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--bg);
+}
+
+.caret {
+  flex: none;
+  width: 12px;
+  color: var(--text-dim);
+  font-size: 11px;
+}
+
+.ws-name {
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ws-counts {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+  flex: none;
+}
+
+.chip {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 1px 7px;
+  font-size: 11px;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+.chip-attention {
+  border-color: #6b4d10;
+  color: var(--attention);
+}
+
+.chip-working {
+  border-color: #1f5136;
+  color: var(--accent);
+}
+
+.chip-now {
+  border-color: #37414d;
+  color: var(--text);
+}
+
+.pane-block {
+  margin-top: 6px;
+}
+
+.pane-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font: inherit;
+  font-size: 12px;
+  padding: 4px 4px 4px 8px;
+  cursor: pointer;
+}
+
+.chip-hidden {
+  opacity: 0.6;
+}
+
+/* pane 底部的「新建 surface」，缩进与 surface-row 对齐 */
+.pane-new {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 8px 12px;
+}
+
+.pane-new-trigger,
+.pane-new-option,
+.pane-new-cancel {
+  border: 1px dashed var(--border);
+  background: transparent;
+  color: var(--text-dim);
+  border-radius: 10px;
+  padding: 7px 12px;
+  font: inherit;
+  font-size: 12.5px;
+  cursor: pointer;
+}
+
+.pane-new.open .pane-new-option {
+  border-style: solid;
+  background: var(--bg-row);
+  color: var(--text);
+}
+
+.pane-new-option:disabled,
+.pane-new-cancel:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+/* 「为什么没建成」就地说明；整行独占，别和按钮挤在一起 */
+.pane-new-note {
+  flex-basis: 100%;
+  font-size: 12px;
+  color: var(--error);
+}
+
+.surface-row {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 0;
+  margin: 0 0 6px 12px;
+  width: calc(100% - 12px);
+  background: var(--bg-row);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: inherit;
+}
+
+.surface-row.muted {
+  opacity: 0.62;
+}
+
+.surface-open {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  padding: 9px 8px 9px 12px;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.surface-open:active {
+  background: #171c22;
+}
+
+.surface-close {
+  flex: none;
+  align-self: center;
+  min-width: 36px;
+  min-height: 36px;
+  margin-right: 6px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-dim);
+  font: inherit;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.surface-close.armed {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--error);
+  min-width: auto;
+  padding: 0 8px;
+}
+
+.surface-close:disabled {
+  opacity: 0.28;
+  cursor: default;
+}
+
+.surface-close-note {
+  flex-basis: 100%;
+  padding: 0 12px 8px;
+  font-size: 12px;
+  color: var(--error);
+}
+
+.surface-glyph {
+  width: 14px;
+  flex: none;
+  font-size: 12px;
+}
+
+.surface-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.surface-title {
+  font-size: 13.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.surface-meta {
+  font-size: 12px;
+  color: var(--text-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.surface-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex: none;
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+
+.ws-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.ws-toggle .ws-name { min-width: 0; }
+.rename-menu { position: relative; flex: none; align-self: center; }
+.more-button {
+  width: 44px;
+  min-height: 44px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-dim);
+  font-size: 24px;
+  cursor: pointer;
+}
+.more-button:hover, .more-button[aria-expanded="true"] { background: var(--border); color: var(--text); }
+.rename-menu-panel {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  z-index: 10;
+  min-width: 128px;
+  padding: 4px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg);
+  box-shadow: 0 8px 24px #0006;
+}
+.rename-menu-panel button {
+  width: 100%;
+  min-height: 44px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+}
+.rename-menu-panel button:hover { background: var(--border); }
+.ws-header:has(.rename-menu-panel) { z-index: 5; }
+.rename-dialog {
+  width: min(360px, calc(100vw - 32px));
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--bg);
+  color: var(--text);
+}
+.rename-dialog::backdrop { background: #0008; }
+.rename-dialog h2 { margin: 0 0 16px; font-size: 18px; }
+.rename-dialog label { display: block; font-size: 14px; }
+.rename-dialog input {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 8px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 16px;
+}
+.rename-dialog-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 20px; }
+.rename-dialog-actions button { min-height: 44px; }
+
+.workspace-danger-actions { border-top: 1px solid var(--border); margin-top: 4px; padding-top: 4px; }
+.rename-menu-panel .danger-action, .workspace-close-dialog .danger-action { color: #e45b61; }
+.workspace-close-dialog { width: min(440px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); overflow-y: auto; }
+.workspace-close-dialog p { line-height: 1.6; overflow-wrap: anywhere; }
+.close-target-name { font-weight: 600; }
+.pane-close-options { display: grid; gap: 8px; max-height: 45dvh; overflow-y: auto; }
+.pane-close-options > button { display: grid; gap: 5px; padding: 12px; min-height: 44px; text-align: left; border: 1px solid var(--border); border-radius: 10px; background: transparent; color: var(--text); font: inherit; overflow-wrap: anywhere; cursor: pointer; }
+.pane-close-options > button:hover { background: var(--border); }
+.pane-close-options > button:disabled { opacity: .5; cursor: not-allowed; }
+.close-surface-list { max-height: 30dvh; overflow-y: auto; padding-left: 22px; line-height: 1.7; overflow-wrap: anywhere; }
+.close-error { color: #e45b61; }
+.workspace-close-dialog .rename-dialog-actions { flex-wrap: wrap; }

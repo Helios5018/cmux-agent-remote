@@ -1,0 +1,100 @@
+/* ---------- 终端渲染网格 ---------- */
+
+.tgrid {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  /* 连字会让字符不再等宽，直接关掉 */
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "calt" 0;
+  line-height: 1.32;
+}
+
+/* 量单格字符宽度用的探针，不占位 */
+.tgrid-probe {
+  position: absolute;
+  visibility: hidden;
+  white-space: pre;
+  pointer-events: none;
+  font-family: inherit;
+}
+
+.tgrid-body {
+  position: relative;
+}
+
+/* fit：一行一个定位容器，段按列号绝对定位，不受浏览器字体度量影响 */
+.tgrid-row {
+  position: relative;
+  height: 1.32em;
+  white-space: pre;
+}
+
+.tgrid-span {
+  position: absolute;
+  top: 0;
+  white-space: pre;
+  overflow: hidden;
+}
+
+.tgrid-cursor {
+  position: absolute;
+  top: 0;
+  height: 1.32em;
+  opacity: 0.75;
+}
+
+/* flow：按容器宽度软换行，普通命令输出用这个 */
+.tgrid-line {
+  white-space: pre-wrap;
+  word-break: break-word;
+  min-height: 1.32em;
+}
+
+.session-tools-right,
+.session-scroll-group,
+.session-font-group,
+.session-view-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: none;
+}
+
+.session-tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 3px 8px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  /* 手机上一行放不下这么多按钮，横滑比换行省高度 */
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.session-tools-right {
+  margin-left: auto;
+  gap: 8px;
+}
+
+.session-font-group {
+  padding-right: 6px;
+  border-right: 1px solid var(--border);
+}
+
+.session-tools .session-tool-button {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 28px;
+  padding: 0;
+}
+
+.session-tools::-webkit-scrollbar {
+  display: none;
+}
+
+.chip-button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}

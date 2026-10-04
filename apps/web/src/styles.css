@@ -1,0 +1,8 @@
+/* 按原层叠顺序组织，功能样式不再混在一个大文件中。 */
+@import "./styles/base.css";
+@import "./styles/workspace.css";
+@import "./styles/session.css";
+@import "./styles/terminal.css";
+@import "./styles/composer.css";
+@import "./styles/utilities.css";
+@import "./styles/appearance.css";

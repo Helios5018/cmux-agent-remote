@@ -1,0 +1,151 @@
+.file-browser { display: flex; flex-direction: column; flex: 1; min-height: 0; min-width: 0; background: var(--bg); }
+.file-browser button, .file-browser select { border: 1px solid var(--border); border-radius: 7px; color: var(--text); background: var(--bg-elevated); padding: 7px 10px; min-height: 36px; cursor: pointer; }
+.file-browser button:disabled { opacity: .4; cursor: default; }
+.file-browser input:not([type="checkbox"]) { min-width: 0; border: 1px solid var(--border); border-radius: 7px; background: var(--bg); color: var(--text); padding: 8px; font: inherit; }
+.file-toolbar, .file-search, .file-actions, .file-selection { display: flex; align-items: center; gap: 7px; padding: 7px 12px; min-width: 0; }
+.file-toolbar { border-bottom: 1px solid var(--border); }
+.file-tabs { display: flex; overflow: auto; gap: 6px; flex: 1; }
+.file-tabs button { white-space: nowrap; max-width: 180px; overflow: hidden; text-overflow: ellipsis; }
+.file-tabs [aria-selected="true"] { border-color: #78a9ff; color: #a9c8ff; }
+.file-menu { position: relative; }
+.file-menu-panel { position: absolute; right: 0; top: 42px; z-index: 20; width: 230px; background: var(--bg-elevated); border: 1px solid var(--border); box-shadow: 0 8px 30px #0006; padding: 6px; border-radius: 9px; }
+.file-menu-panel button { display: block; width: 100%; text-align: left; }
+.file-search input { flex: 1; }
+.file-actions { flex-wrap: wrap; font-size: 12px; }
+.file-actions label { display: flex; align-items: center; gap: 3px; }
+.file-body { display: flex; flex: 1; min-height: 0; border-top: 1px solid var(--border); position: relative; }
+.file-list { flex: 1; min-width: 0; overflow: auto; overscroll-behavior: contain; touch-action: pan-y; }
+.file-row { display: flex; align-items: center; gap: 6px; padding: 0 12px; border-bottom: 1px solid var(--border); }
+.file-row input { width: 19px; height: 19px; flex-shrink: 0; }
+.file-row.selected { background: #78a9ff1a; }
+.file-row .file-entry { display: flex; align-items: center; flex: 1; min-width: 0; text-align: left; border: 0; border-radius: 0; background: transparent; gap: 12px; min-height: 60px; }
+.file-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.file-name small { display: block; font-size: 11px; color: var(--text-dim); overflow: hidden; text-overflow: ellipsis; margin-top: 5px; }
+.file-preview { width: 55%; overflow: auto; border-left: 1px solid var(--border); padding: 12px; background: var(--bg); min-width: 0; }
+.file-preview-header { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.file-preview-header strong { overflow-wrap: anywhere; }
+.file-preview pre { font: 12px/1.65 ui-monospace, monospace; tab-size: 2; overflow: auto; }
+.file-preview img { max-width: 100%; height: auto; }
+.file-selection { border-top: 1px solid var(--border); flex-wrap: wrap; padding-bottom: max(10px, env(safe-area-inset-bottom)); background: var(--bg-elevated); font-size: 12px; }
+.file-message { font-size: 12px; padding: 6px 12px; overflow-wrap: anywhere; }
+.file-message.error { color: #ffab9e; }
+.file-empty { padding: 20px; color: var(--text-dim); font-size: 13px; }
+.file-more { display: block; margin: 15px auto; }
+@media (max-width: 640px) {
+ .file-browser button { min-height: 40px; }
+ .file-toolbar, .file-search, .file-actions, .file-selection { padding-left: 8px; padding-right: 8px; gap: 5px; }
+ .file-preview { width: 100%; border: 0; position: absolute; inset: 0; z-index: 3; }
+ .file-body.has-preview .file-list { visibility: hidden; }
+ .file-search select { max-width: 115px; }
+ .file-selection button { padding: 6px 8px; }
+}
+
+/* 目录内容优先：常驻一行导航，路径常驻，搜索按需展开。 */
+.file-browser { position: relative; }
+.file-toolbar { flex-shrink: 0; gap: 4px; padding: 5px 10px; }
+.file-toolbar > button, .file-menu > button { border-color: transparent; background: transparent; min-width: 40px; font-size: 20px; }
+.file-toolbar .file-paste { font-size: 12px; color: #a9c8ff; white-space: nowrap; }
+.file-directory-tabs { flex: none; padding: 5px 10px 0; }
+.file-directory-tabs button { border: 0; background: transparent; font-size: 12px; min-height: 30px; }
+.file-directory-tabs [aria-selected="true"] { background: var(--bg-elevated); }
+.file-menu-panel { max-height: min(65dvh, 520px); overflow-y: auto; }
+.file-menu-panel button { border: 0; background: transparent; border-radius: 4px; font-size: 13px; min-height: 40px; }
+.file-menu-panel button:hover { background: var(--bg-hover); }
+.file-menu-panel button:last-child { border-top: 1px solid var(--border); margin-top: 4px; }
+.file-row { border-bottom-color: #ffffff0a; }
+.file-row .file-entry { min-height: 54px; }
+.file-toast { position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%); z-index: 8; max-width: calc(100% - 24px); width: max-content; padding: 9px 14px; border-radius: 8px; background: var(--bg-elevated); box-shadow: 0 3px 15px #0005; font-size: 12px; pointer-events: none; }
+.file-selection { display: block; flex-shrink: 0; }
+.file-selection-heading, .file-selection-actions { display: flex; align-items: center; gap: 8px; }
+.file-selection-heading span { flex: 1; }
+.file-selection-heading button { border: 0; background: transparent; }
+.file-selection-actions button { flex: 1; }
+@media (max-width: 640px) {
+ .file-toolbar { padding: 4px 8px; }
+ .file-row { padding: 0 10px; }
+ .file-row .file-entry { min-height: 52px; padding: 6px; }
+ .file-name small { font-size: 10px; margin-top: 3px; }
+ .file-search { padding-top: 3px; }
+ .file-directory-tabs button { min-height: 30px; }
+}
+.file-breadcrumb-wrap { position: relative; flex: 1; min-width: 0; }
+.file-breadcrumbs { display: flex; align-items: center; overflow-x: auto; white-space: nowrap; min-width: 0; min-height: 40px; scrollbar-width: none; overscroll-behavior-x: contain; touch-action: pan-x; font: 13px/1.4 ui-monospace, SFMono-Regular, monospace; }
+.file-breadcrumbs::-webkit-scrollbar { display: none; }
+.file-breadcrumbs > * { flex-shrink: 0; }
+.file-breadcrumbs button { font: inherit; border: 0; background: transparent; border-radius: 4px; padding: 0 2px; min-height: 40px; color: var(--text-dim); }
+.file-breadcrumbs button:hover { color: var(--text); background: var(--bg-elevated); }
+.file-path-separator { color: var(--text-dim); padding: 0 2px; }
+.file-path-ancestor { color: var(--text-dim); }
+.file-path-current { color: var(--text); font-weight: 600; padding-right: 3px; }
+.file-breadcrumb-wrap::before, .file-breadcrumb-wrap::after { content: ""; position: absolute; top: 0; bottom: 0; width: 16px; pointer-events: none; z-index: 1; opacity: 0; }
+.file-breadcrumb-wrap::before { left: 0; background: linear-gradient(to right, var(--bg), transparent); }
+.file-breadcrumb-wrap::after { right: 0; background: linear-gradient(to left, var(--bg), transparent); }
+.file-breadcrumb-wrap.overflow-left::before, .file-breadcrumb-wrap.overflow-right::after { opacity: 1; }
+.file-media { margin-top: 14px; }
+.file-media video { display: block; width: 100%; max-height: 65dvh; background: #000; border-radius: 6px; }
+.file-media audio { display: block; width: 100%; }
+.file-media p { color: var(--text-dim); font-size: 13px; }
+/* 顶栏分段切换，不另占一行。 */
+.session-file-tabs { display: flex; flex-shrink: 0; gap: 2px; padding: 3px; border: 1px solid var(--border); border-radius: 9px; background: var(--bg); }
+.session-file-tabs button { min-height: 32px; border: 0; border-radius: 6px; padding: 5px 10px; background: transparent; color: var(--text-dim); font: inherit; font-size: 12px; white-space: nowrap; }
+.session-file-tabs [aria-selected="true"] { background: var(--highlight-soft); color: var(--text); box-shadow: inset 0 -2px #8fa5c5; }
+.file-menu-panel .file-menu-create { color: #b2c5b0; }
+.file-menu-panel .file-menu-organize { color: #afc0d7; }
+.file-menu-panel .file-menu-browse { color: #c0b9cf; }
+.file-menu-panel .file-menu-muted { color: var(--text-dim); }
+.file-menu-panel .file-menu-close { color: #d2b0ad; }
+.file-menu-panel button::before { content: ""; display: inline-block; width: 5px; height: 5px; border-radius: 2px; margin-right: 9px; background: currentColor; opacity: .7; vertical-align: middle; }
+.file-menu-panel .file-menu-divider { border-top: 1px solid #ffffff0c; margin-top: 4px; padding-top: 10px; }
+@media (max-width: 640px) {
+ .session-page .topbar { gap: 6px; }
+ .session-page .topbar-right { gap: 5px; flex-shrink: 0; }
+ .session-file-tabs button { padding: 5px 9px; min-height: 34px; }
+}
+.file-selection-actions { flex-wrap: wrap; }
+.file-selection-actions button { min-width: 54px; padding-left: 6px; padding-right: 6px; }
+.file-browser .file-delete-button { color: #e1aaa5; border-color: #805b58; background: #302122; }
+.file-delete-dialog { max-width: min(480px, calc(100vw - 24px)); }
+.file-delete-warning { color: #d2b0ad; font-size: 13px; line-height: 1.6; }
+.file-delete-list { max-height: 24dvh; overflow: auto; padding-left: 20px; font: 12px/1.7 ui-monospace, monospace; overflow-wrap: anywhere; }
+.file-row.cut .file-entry { opacity: .5; }
+
+/* 文件区只有一列与三列两种布局，按它实际获得的宽度选择。 */
+.file-browser.one-column .file-preview { position: absolute; inset: 0; width: 100%; border: 0; z-index: 3; }
+.file-browser.one-column .file-body.has-preview .file-list { visibility: hidden; }
+.file-browser.three-columns .file-body { display: grid; grid-template-columns: minmax(150px, .75fr) minmax(230px, 1.15fr) minmax(280px, 1.3fr); }
+.file-browser.three-columns .file-preview { position: static; width: auto; min-width: 0; }
+.file-browser.three-columns .file-list { visibility: visible; }
+.file-parent { overflow: auto; min-width: 0; border-right: 1px solid var(--border); }
+.file-column-heading { position: sticky; top: 0; z-index: 1; padding: 10px 12px; font-size: 11px; color: var(--text-dim); background: var(--bg); border-bottom: 1px solid #ffffff0c; }
+.file-browser.three-columns .file-child { padding: 0; }
+.file-row.focused .file-entry { color: var(--text); }
+.file-browser:focus { outline: none; }
+.file-browser:focus-within .file-row.focused { box-shadow: inset 2px 0 #9daec8; }
+.file-shortcuts { position: absolute; inset: 60px 12px auto; z-index: 12; max-height: 70%; overflow: auto; padding: 14px; border: 1px solid var(--border); border-radius: 9px; background: var(--bg-elevated); font-size: 12px; line-height: 1.8; box-shadow: 0 8px 30px #0006; }
+.file-shortcuts > button { float: right; }
+/* 三列共用行组件：同一行高、字号、图标与信息布局。 */
+.file-browser .file-row { gap: 6px; margin: 2px 5px; padding: 0 7px; border: 0; border-radius: 5px; }
+.file-browser .file-row .file-entry { display: flex; align-items: center; gap: 10px; min-width: 0; min-height: 44px; padding: 6px 2px; font-size: 13px; font-weight: 400; line-height: 20px; border: 0; border-radius: 0; background: transparent; }
+.file-browser .file-name { flex: 1; min-width: 0; }
+.file-browser .file-name small { margin-top: 1px; font-size: 10px; line-height: 15px; }
+.file-entry-meta { flex: none; color: var(--text-dim); opacity: .65; font-size: 10px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.file-icon { flex: 0 0 25px; width: 25px; height: 25px; display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; background: color-mix(in srgb, currentColor 9%, transparent); }
+.file-icon svg { display: block; width: 19px; height: 19px; }
+.file-icon-folder { color: #d7b679; }
+.file-icon-code { color: #92b8ee; }
+.file-icon-config { color: #b6a0dd; }
+.file-icon-image { color: #8ec5ad; }
+.file-icon-video { color: #d69dbc; }
+.file-icon-audio { color: #d5ad88; }
+.file-icon-archive { color: #c5b476; }
+.file-icon-pdf { color: #da9595; }
+.file-icon-document { color: #93bfce; }
+.file-icon-sheet { color: #99c59a; }
+.file-icon-link { color: #a7b8c5; }
+.file-icon-file { color: #a8adb8; }
+.file-row:hover { background: #ffffff05; }
+.file-row.focused, .file-row.current { background: var(--highlight-soft); }
+.file-column-heading { height: 38px; box-sizing: border-box; padding: 8px 14px; line-height: 21px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.file-parent, .file-child { overscroll-behavior: contain; }
+.file-parent .file-empty, .file-child .file-empty { font-size: 12px; }
+@media (max-width: 640px) { .file-browser .file-row .file-entry { min-height: 48px; } }

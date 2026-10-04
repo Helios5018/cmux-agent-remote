@@ -1,0 +1,32 @@
+.inline-editor { white-space: pre-wrap; overflow-wrap: anywhere; outline: none; }
+.inline-editor:focus { border-color: var(--accent, #74a8ef); }
+.inline-editor[data-empty="true"]::before { content: attr(data-placeholder); color: #777e89; font-weight: 400; pointer-events: none; position: absolute; }
+.inline-editor[aria-disabled="true"] { opacity: .55; }
+.inline-file { display: inline-flex; vertical-align: baseline; align-items: center; gap: 4px; max-width: min(100%, 260px); border: 1px solid var(--border); background: var(--panel, #202832); border-radius: 6px; padding: 0 5px; margin: 0 2px; cursor: pointer; white-space: nowrap; user-select: all; font-size: .87em; line-height: 1.65; }
+.inline-file .file-icon { width: 17px; height: 19px; flex: 0 0 17px; }
+.inline-file-name { overflow: hidden; text-overflow: ellipsis; }
+.inline-file small { flex-shrink: 0; color: var(--text-dim); }
+.inline-file-error { border-color: #cc6565; }
+.inline-file:focus { outline: 2px solid var(--accent, #74a8ef); }
+.attachment-controls { position: relative; }
+.attachment-add { min-height: 34px; width: 100%; font-size: 20px; }
+.attachment-menu { position: absolute; bottom: calc(100% + 6px); left: 0; z-index: 25; width: 190px; padding: 6px; background: var(--panel, #202832); border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 8px 24px #0005; }
+.attachment-menu button { display: block; width: 100%; text-align: left; padding: 10px; }
+.attachment-menu small { display: block; padding: 8px; color: var(--text-dim); }
+.attachment-picker, .reference-details { color: var(--text); background: var(--bg, #101419); border: 1px solid var(--border); border-radius: 12px; padding: 12px; max-height: 85dvh; }
+.attachment-picker { width: min(1100px, 96vw); height: 80dvh; }
+.attachment-picker[open] { display: flex; flex-direction: column; }
+.attachment-picker .file-browser { flex: 1; min-height: 0; width: 100%; }
+.attachment-picker::backdrop, .reference-details::backdrop { background: #0009; }
+.attachment-dialog-header { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px; }
+.attachment-dialog-header strong { overflow-wrap: anywhere; min-width: 0; }
+.attachment-dialog-header button { flex-shrink: 0; min-width: 36px; min-height: 36px; }
+.reference-details { width: min(640px, 94vw); }
+.reference-path { overflow-wrap: anywhere; user-select: text; font-size: 13px; }
+.reference-details img, .reference-details video { max-width: 100%; max-height: 45dvh; object-fit: contain; }
+.reference-details pre { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 45dvh; overflow: auto; }
+.reference-actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+.reference-actions button { min-height: 36px; }
+.attachment-controls button, .attachment-dialog-header button, .reference-actions button { color: var(--text); background: var(--bg-elevated); border: 1px solid var(--border); border-radius: var(--radius, 7px); cursor: pointer; }
+.attachment-controls button:disabled, .reference-actions button:disabled { opacity: .45; cursor: default; }
+.attachment-menu button:hover { background: var(--bg-input); }

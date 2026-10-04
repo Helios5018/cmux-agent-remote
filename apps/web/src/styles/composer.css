@@ -1,0 +1,316 @@
+/* ---------- 输入区 ---------- */
+
+.composer {
+  --composer-sheet-max: 70vh;
+  border-top: 1px solid var(--border);
+  background: var(--bg-elevated);
+  padding: 10px 12px calc(10px + var(--safe-bottom));
+}
+
+/* 展开编辑：占掉下半屏，终端还留一截能瞄 */
+.composer.composer-editor-open {
+  height: var(--composer-sheet-max);
+  max-height: var(--composer-sheet-max);
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.composer-editor-open .composer-hint,
+.composer-editor-open .composer-footer {
+  flex: none;
+}
+
+.composer-hint {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+
+.composer-recovery-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.composer-recovery-actions button {
+  min-height: 36px;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-elevated);
+  color: var(--text);
+  font: inherit;
+}
+
+/* 沉浸模式下输入区先收成一条，点开才展开 */
+.composer-collapsed {
+  padding: 6px 12px calc(6px + var(--safe-bottom));
+}
+
+.composer-expand {
+  width: 100%;
+  text-align: left;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #0d1014;
+  color: var(--text-dim);
+  padding: 9px 12px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.composer-collapse {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-dim);
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.danger-hint {
+  color: var(--error);
+}
+
+.composer-input-row {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+}
+
+.composer-editor-open .composer-input-row {
+  flex: 1;
+  min-height: 0;
+  align-items: stretch;
+}
+
+.composer-input-wrap {
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-input);
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+}
+
+.composer-editor-open .composer-input-wrap {
+  height: 100%;
+}
+
+.composer .composer-input {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  resize: none;
+  border-radius: 12px 12px 0 0;
+  border: none;
+  box-shadow: none;
+  background: transparent;
+  color: var(--text);
+  padding: 12px 14px 4px;
+  font: inherit;
+  /* 16px 以上，iOS 才不会自动放大页面 */
+  font-size: 16px;
+  line-height: 1.45;
+  min-height: calc(2 * 1.45em + 16px);
+  flex: none;
+  overflow-y: hidden;
+}
+
+.composer.composer-editor-open .composer-input {
+  flex: 1;
+  height: auto;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.composer-input:disabled {
+  opacity: 0.5;
+}
+
+.composer-size-toggle {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border: none;
+  background: transparent;
+  color: var(--text-dim);
+  border-radius: 6px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.composer-size-toggle:hover,
+.composer-size-toggle:focus-visible,
+.composer-collapse:hover,
+.composer-collapse:focus-visible {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.composer-size-toggle:focus-visible,
+.composer-collapse:focus-visible {
+  outline: 1px solid var(--highlight);
+}
+
+.composer-actions {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 8px 8px;
+}
+.composer-action-spacer { flex: 1; }
+.composer .attachment-add {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  min-height: 34px;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--text-dim);
+  font-size: 24px;
+  font-weight: 400;
+}
+.composer .attachment-add:hover { background: var(--bg-hover); color: var(--text); }
+.composer .composer-size-toggle { width: 34px; height: 34px; }
+.composer .send-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 34px;
+  padding: 0 12px;
+  flex: none;
+  border: none;
+  border-radius: 7px;
+  box-shadow: none;
+  background: var(--primary);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.composer .send-button:disabled {
+  background: #292e37;
+  color: #747c89;
+  opacity: 1;
+  cursor: default;
+}
+.composer-input-wrap:focus-within { border-color: #6c7e99; }
+.composer-footer { display: flex; align-items: center; gap: 12px; margin-top: 6px; flex: none; min-width: 0; }
+.composer .composer-collapse {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  flex: none;
+  width: auto;
+  height: 34px;
+  padding: 0 6px;
+  border-radius: 6px;
+  color: var(--text-dim);
+  font-size: 12px;
+}
+
+/* 按键条：单行横滑，两端渐隐提示还有更多键 */
+.key-bar-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.key-bar-wrap::before,
+.key-bar-wrap::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 24px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  z-index: 1;
+}
+
+.key-bar-wrap::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg-elevated), rgba(20, 24, 29, 0));
+}
+
+.key-bar-wrap::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg-elevated), rgba(20, 24, 29, 0));
+}
+
+.key-bar-wrap.fade-start::before,
+.key-bar-wrap.fade-end::after {
+  opacity: 1;
+}
+
+.key-bar {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 6px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 2px;
+}
+
+.key-bar::-webkit-scrollbar {
+  display: none;
+}
+
+/* 同一组键贴在一起，组间留白代替分隔线 */
+.key-group {
+  display: flex;
+  flex: none;
+  gap: 6px;
+}
+
+.key-group + .key-group {
+  margin-left: 10px;
+}
+
+.composer .key-button {
+  flex: none;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-dim);
+  box-shadow: none;
+  border-radius: 5px;
+  padding: 0 7px;
+  font-size: 12px;
+  font-weight: 500;
+  min-width: 30px;
+  height: 32px;
+  cursor: pointer;
+}
+.composer .key-button:not(:disabled):hover { background: var(--bg-hover); border-color: var(--border); color: var(--text); }
+.composer .key-button.danger { color: #cd9099; background: transparent; border-color: transparent; }
+.composer .key-button.danger-armed { background: #542f37; border-color: #a15c65; color: #ffd7db; }
+.composer .key-button:disabled { opacity: .4; }
+@media (pointer: coarse) {
+  .composer .key-button { min-width: 36px; height: 40px; }
+  .composer .composer-collapse { height: 40px; }
+}
